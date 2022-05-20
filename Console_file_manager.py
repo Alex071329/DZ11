@@ -1,8 +1,9 @@
-import os
+import sys
 import shutil
 import glob
-import sys
+import os
 import platform
+
 while True:
     print('1- создать папку;')
     print('2- удалить(файл / папку);')
@@ -14,14 +15,14 @@ while True:
     print('8- создатель программы;')
     print('9- играть в викторину;')
     print('10- мой банковский счет;')
-    print('11- выход.')
+    print('11- смена рабочей директории;')
+    print('12- выход.')
     choice = input('Выберите пункт меню: ')
     if choice == '1':
         folder_name = input('Введите название папки: ')
         if not folder_name.endswith('.py'):
             if not os.path.exists(folder_name):
                 os.mkdir(folder_name)
-                print(os.listdir())
                 pass
             else:
                 print('Такая папка уже существует.')
@@ -29,48 +30,12 @@ while True:
         else:
             pass
     elif choice == '2':
-        while True:
-            print('1- фаил ;')
-            print('2- папка;')
-            print('3- выход.')
+        from functions import menu_item,remove_file,delete_folder,copy_file,copy_folder
+        menu_item(a=remove_file,b=delete_folder)
 
-            choice = input('Выберите пункт меню: ')
-            if choice == '1':
-                folder_name = input('Введите название файла: ')
-                os.remove(folder_name)
-                print(os.listdir())
-                pass
-            elif choice == '2':
-                folder_name = input('Введите название папки: ')
-                os.rmdir(folder_name)
-                print(os.listdir())
-                pass
-            elif choice == '3':
-                break
-            else:
-                print('Неверный пункт меню: ')
     elif choice == '3':
-        while True:
-            print('1- фаил ;')
-            print('2- папка;')
-            print('3- выход.')
-
-            choice = input('Выберите пункт меню: ')
-            if choice == '1':
-                folder_name = input('Введите название файла: ')
-                new_folder_name = folder_name[0:-3] + '_copy.py'
-                shutil.copy(folder_name,new_folder_name)
-                print(os.listdir())
-                pass
-            elif choice == '2':
-                folder_name = input('Введите название папки: ')
-                new_folder_name = folder_name + '_copy'
-                shutil.copytree(folder_name , new_folder_name)
-                print(os.listdir())
-            elif choice == '3':
-                break
-            else:
-                print('Неверный пункт меню: ')
+        from functions import menu_item, remove_file, delete_folder, copy_file, copy_folder
+        menu_item(a=copy_file,b=copy_folder)
 
     elif choice == '4':
         print(os.listdir())
@@ -97,6 +62,11 @@ while True:
         my_bank_account()
         pass
     elif choice == '11':
+        directory_name = input('Введите название папки или путь до неё : ')
+        os.chdir(directory_name)
+        print(os.getcwd())
+        pass
+    elif choice == '12':
         break
     else:
         print('Неверный пункт меню: ')

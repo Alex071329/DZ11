@@ -132,7 +132,48 @@ def my_bank_account():
             break
         else:
             print('Неверный пункт меню')
+
 if __name__ == '__main__':
     my_bank_account()
 
+import os
+import shutil
+def menu_item(a,b):
+    while True:
+        print('1- фаил ;')
+        print('2- папка;')
+        print('3- выход.')
+
+        choice = input('Выберите пункт меню: ')
+        if choice == '1':
+            a()
+            pass
+        elif choice == '2':
+            b()
+            pass
+        elif choice == '3':
+            break
+        else:
+            print('Неверный пункт меню: ')
+def remove_file():
+    file_name = input('Введите название файла: ')
+    os.remove(file_name)
+def delete_folder():
+    folder_name = input('Введите название папки: ')
+    os.rmdir(folder_name)
+
+if __name__ == '__main__':
+    menu_item(a = remove_file,b = delete_folder)
+
+def copy_file():
+    file_name = input('Введите название файла: ')
+    new_folder_name = file_name[0:-3] + '_copy.py'
+    shutil.copy(file_name,new_folder_name)
+def copy_folder():
+    folder_name = input('Введите название папки: ')
+    new_folder_name = folder_name + '_copy'
+    shutil.copytree(folder_name, new_folder_name)
+
+if __name__ == '__main__':
+    menu_item(a = copy_file,b = copy_folder)
 
