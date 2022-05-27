@@ -167,8 +167,8 @@ if __name__ == '__main__':
 
 def copy_file():
     file_name = input('Введите название файла: ')
-    new_folder_name = file_name[0:-3] + '_copy.py'
-    shutil.copy(file_name,new_folder_name)
+    new_file_name = file_name[0:-3] + '_copy.py'
+    shutil.copy(file_name,new_file_name)
 def copy_folder():
     folder_name = input('Введите название папки: ')
     new_folder_name = folder_name + '_copy'
