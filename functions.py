@@ -80,11 +80,20 @@ def victory():
 if __name__ == '__main__':
     victory()
 
-
+import pickle
 def my_bank_account():
     list_nambers = []
     shopping = []
     purchase_history = []
+    if not os.path.exists('balance.data'):
+        with open('balance.data', 'wb') as f:
+            remainder = 0
+            pickle.dump(remainder, f)
+    if not os.path.exists('history.data'):
+        with open('history.data', 'wb') as f:
+            history = []
+            pickle.dump(history, f)
+
 
     def product(title, price):
         balance = sum(list_nambers) - sum(shopping)
@@ -100,7 +109,13 @@ def my_bank_account():
         print('4. остаток на счете')
         print('5. выход')
 
-        balance = sum(list_nambers) - sum(shopping)
+        with open('balance.data', 'rb') as f:
+            remainder = pickle.load(f)
+        balance = sum(list_nambers) - sum(shopping) + remainder
+        with open('history.data', 'rb') as f:
+            history = pickle.load(f)
+        history += purchase_history
+
         choice = input('Выберите пункт меню: ')
         if choice == '1':
             check = 0
@@ -123,12 +138,16 @@ def my_bank_account():
                 product('масло', 130)
                 pass
         elif choice == '3':
-            print(purchase_history)
+            print(history)
             pass
         elif choice == '4':
             print('Всего на счете: ', balance)
             pass
         elif choice == '5':
+            with open('balance.data', 'wb') as f:
+                pickle.dump(balance, f)
+            with open('history.data', 'wb') as f:
+                pickle.dump(history, f)
             break
         else:
             print('Неверный пункт меню')
@@ -155,6 +174,7 @@ def menu_item(a,b):
             break
         else:
             print('Неверный пункт меню: ')
+
 def remove_file():
     file_name = input('Введите название файла: ')
     os.remove(file_name)
@@ -177,3 +197,15 @@ def copy_folder():
 if __name__ == '__main__':
     menu_item(a = copy_file,b = copy_folder)
 
+def filenames():
+    result = []
+    for item in os.listdir():
+        if os.path.isfile(item):
+            result.append(item)
+    return result
+def foldernames():
+    result1 = []
+    for item in os.listdir():
+        if os.path.isdir(item):
+            result1.append(item)
+    return result1

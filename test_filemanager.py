@@ -73,3 +73,10 @@ def test_copy_folder():
     copy_folder('main')
     assert 'main_copy' in os.listdir()
     os.rmdir('main_copy')
+
+from functions import foldernames,filenames
+def test_foldernames():
+    assert 'main' in foldernames()
+
+def test_filenames():
+    assert 'listdir.txt' in filenames()
