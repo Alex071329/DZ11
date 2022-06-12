@@ -1,2 +1,2 @@
-files: 123.py,456.py,Console_file_manager.py,functions.py,LICENSE,listdir.txt,main.py,README.md,test_filemanager.py,test_python.py
-dirs: .git,.idea,.pytest_cache,main,__pycache__
+files: balance.data,Console_file_manager.py,functions.py,history.data,LICENSE,listdir.txt,main.py,README.md,test_filemanager.py,test_python.py
+dirs: .git,.idea,__pycache__

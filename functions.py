@@ -1,3 +1,20 @@
+import os
+import shutil
+import pickle
+def add_separators(f):
+    # inner - итоговая функция с новым поведение
+    def inner(*args, **kwargs):
+        # поведение до вызова
+        print('-' * 200)
+        result = f(*args, **kwargs)
+        # поведение после вызова
+        print('-' * 200)
+        return result
+
+    # возвращается функция inner с новым поведением
+    return inner
+
+@ add_separators
 def victory():
     famous_people = {
         'А.С.Пушкин': '06.06.1799',
@@ -80,7 +97,9 @@ def victory():
 if __name__ == '__main__':
     victory()
 
-import pickle
+
+
+@ add_separators
 def my_bank_account():
     list_nambers = []
     shopping = []
@@ -118,25 +137,31 @@ def my_bank_account():
 
         choice = input('Выберите пункт меню: ')
         if choice == '1':
-            check = 0
-            namber = input('Введите сумму на сколько пополнить счет: ')
-            if int(namber) > 0:
-                check += int(namber)
-                list_nambers.append(check)
-                pass
-            else:
-                pass
+            try:
+                check = 0
+                namber = input('Введите сумму на сколько пополнить счет: ')
+                if int(namber) > 0:
+                    check += int(namber)
+                    list_nambers.append(check)
+                    pass
+                else:
+                    pass
+            except:
+                print('Вы ввели не число.')
         elif choice == '2':
-            namber = int(input('Введите сумму покупки: '))
-            if namber > balance:
-                print('Денег не хватает.')
-                pass
-            else:
-                purchase = input('Введите название покупки(молоко,хлеб,масло): ')
-                product('молоко', 60)
-                product('хлеб', 40)
-                product('масло', 130)
-                pass
+            try:
+                namber = int(input('Введите сумму покупки: '))
+                if namber > balance:
+                    print('Денег не хватает.')
+                    pass
+                else:
+                    purchase = input('Введите название покупки(молоко,хлеб,масло): ')
+                    product('молоко', 60)
+                    product('хлеб', 40)
+                    product('масло', 130)
+                    pass
+            except:
+                print('Вы ввели не число.')
         elif choice == '3':
             print(history)
             pass
@@ -155,8 +180,7 @@ def my_bank_account():
 if __name__ == '__main__':
     my_bank_account()
 
-import os
-import shutil
+
 def menu_item(a,b):
     while True:
         print('1- фаил ;')
@@ -176,36 +200,49 @@ def menu_item(a,b):
             print('Неверный пункт меню: ')
 
 def remove_file():
-    file_name = input('Введите название файла: ')
-    os.remove(file_name)
+    try:
+        file_name = input('Введите название файла: ')
+        os.remove(file_name)
+    except:
+        print('Такого файла не существует.')
 def delete_folder():
-    folder_name = input('Введите название папки: ')
-    os.rmdir(folder_name)
+    try:
+        folder_name = input('Введите название папки: ')
+        os.rmdir(folder_name)
+    except:
+        print('Такой папки не существует.')
 
 if __name__ == '__main__':
     menu_item(a = remove_file,b = delete_folder)
 
 def copy_file():
-    file_name = input('Введите название файла: ')
-    new_file_name = file_name[0:-3] + '_copy.py'
-    shutil.copy(file_name,new_file_name)
+    try:
+        file_name = input('Введите название файла: ')
+        new_file_name = file_name[0:-3] + '_copy.py'
+        shutil.copy(file_name,new_file_name)
+    except:
+        print('Такого файла не существует.')
 def copy_folder():
-    folder_name = input('Введите название папки: ')
-    new_folder_name = folder_name + '_copy'
-    shutil.copytree(folder_name, new_folder_name)
+    try:
+        folder_name = input('Введите название папки: ')
+        new_folder_name = folder_name + '_copy'
+        shutil.copytree(folder_name, new_folder_name)
+    except:
+        print('Такой папки не существует.')
+
 
 if __name__ == '__main__':
     menu_item(a = copy_file,b = copy_folder)
 
 def filenames():
-    result = []
-    for item in os.listdir():
-        if os.path.isfile(item):
-            result.append(item)
+    result = [item for item in os.listdir() if os.path.isfile(item)]
+    #for item in os.listdir():
+     #   if os.path.isfile(item):
+      #      result.append(item)
     return result
 def foldernames():
-    result1 = []
-    for item in os.listdir():
-        if os.path.isdir(item):
-            result1.append(item)
+    result1 = [item for item in os.listdir() if os.path.isdir(item)]
+    #for item in os.listdir():
+    #    if os.path.isdir(item):
+    #       result1.append(item)
     return result1
